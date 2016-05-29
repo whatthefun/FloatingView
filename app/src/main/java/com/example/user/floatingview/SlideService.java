@@ -43,14 +43,11 @@ public class SlideService extends Service {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.TOP | Gravity.LEFT;
-//        frameLayout = new FrameLayout(getApplicationContext());//not sure the context is this?
-        windowManager.addView(imgFloatingView, params);
-//        LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        layoutInflater.inflate(R.drawable.ic_radio_button, frameLayout);
+
+//        windowManager.addView(imgFloatingView, params);
+//        isFloatingViewAttached = true;
 
         imgFloatingView.setOnTouchListener(imgFloatingViewListener);
-
-        isFloatingViewAttached = true;
     }
 
     @Override
@@ -70,10 +67,15 @@ public class SlideService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("Service", "onStartCommand");
-        Log.i("onStartCommand", String.valueOf(isFloatingViewAttached));
-        if(!isFloatingViewAttached){
-            windowManager.addView(imgFloatingView, imgFloatingView.getLayoutParams());
+
+        if(isFloatingViewAttached ){
+            removeView();
+        }else {
+//            windowManager.addView(imgFloatingView, imgFloatingView.getLayoutParams());
+            windowManager.addView(imgFloatingView, params);
+            isFloatingViewAttached = true;
         }
+
         return super.onStartCommand(intent, flags, startId);
     }
 
