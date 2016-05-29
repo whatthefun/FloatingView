@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Intent intent = new Intent(context, SlideService.class);
-        int flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
         intent.setFlags(flags);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
 

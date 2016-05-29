@@ -44,10 +44,8 @@ public class SlideService extends Service {
                 PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.TOP | Gravity.LEFT;
 
-//        windowManager.addView(imgFloatingView, params);
-//        isFloatingViewAttached = true;
-
         imgFloatingView.setOnTouchListener(imgFloatingViewListener);
+
     }
 
     @Override
@@ -68,14 +66,12 @@ public class SlideService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("Service", "onStartCommand");
 
-        if(isFloatingViewAttached ){
-            removeView();
-        }else {
-//            windowManager.addView(imgFloatingView, imgFloatingView.getLayoutParams());
+        if(!isFloatingViewAttached){
             windowManager.addView(imgFloatingView, params);
             isFloatingViewAttached = true;
+        }else{
+            removeView();
         }
-
         return super.onStartCommand(intent, flags, startId);
     }
 
